@@ -22,8 +22,10 @@ Pair once (the watch's "Pair new device" screen shows the pairing IP:port and a 
 ```
 adb pair <watch-ip>:<pairing-port>
 adb connect <watch-ip>:<port>
-adb install app-debug.apk
+adb install <path-to-apk>
 ```
+
+Use the APK downloaded from Releases, or `app/build/outputs/apk/debug/app-debug.apk` if you built it yourself.
 
 ## Usage
 1. Open the app on the watch and tap Start. Grant the permissions: body sensors, Bluetooth, notifications, and then sensor access **"Allow all the time"**. If you deny the last one, readings may stop when the screen turns off.

@@ -15,9 +15,12 @@ The Gradle wrapper jar is not included. If sync fails, run `gradle wrapper` once
 A debug-signed APK is also available under Releases.
 
 ## Install
-Enable developer options and Wi-Fi debugging on the watch, then:
+Enable developer options and Wi-Fi debugging on the watch, and put the watch and the PC on the same network.
+Pair once (the watch's "Pair new device" screen shows the pairing IP:port and a code), then connect
+(the connect port is different from the pairing port, and is shown on the main Wi-Fi debugging screen):
 
 ```
+adb pair <watch-ip>:<pairing-port>
 adb connect <watch-ip>:<port>
 adb install app-debug.apk
 ```

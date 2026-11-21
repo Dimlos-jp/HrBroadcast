@@ -44,15 +44,31 @@ To check that it survives screen-off: tap Start, keep the watch on your wrist, l
 This follows [Samsung's article on continuous heart rate tracking with the screen off](https://developer.samsung.com/galaxy-watch/blog/en/2026/04/23/continuous-heart-rate-tracking-on-galaxy-watch-even-with-the-screen-off).
 The Samsung Health Sensor SDK and the Health Platform developer mode are not needed.
 
+## Battery use
+HrBroadcast favors continuous readings over battery life. It keeps the heart rate sensor measuring
+the whole time, so readings do not stop or thin out while the screen is off. The price is higher
+battery use than watch-side apps that rely on the watch's normal, less frequent measurements.
+
+One user measured both apps on a Galaxy Watch 4, one at a time for 20 minutes each, connected to HR Relay:
+the battery dropped by 5% with HrBroadcast and by 3% with "Heart for Bluetooth".
+That is a single rough measurement (the battery level has 1% resolution), so please treat it only
+as a rough guide. Android's per-app battery breakdown is not reliable for comparing the two when both are
+running at the same time.
+
+If your watch already keeps sending heart rate with the screen off using another app and you are happy
+with how often it updates, you may not need HrBroadcast.
+
 ## Status
 
 Tested:
 - Galaxy Watch Ultra, on one Android phone: readings kept arriving with the screen off for 26+ minutes (longest interval 2 seconds)
+- Galaxy Watch 4 (user report): readings kept arriving with the screen off, and the heart rate reached a MacroDroid macro through HR Relay
 - Receiving the heart rate in HR Relay and a MacroDroid macro via the "Intent Received" trigger
 
 Not tested yet:
 - Other Galaxy Watch models and other Wear OS watches
-- Long-term stability (hours) and battery consumption
+- Long-term stability (hours)
+- Battery use over a full day
 
 This is an early version. Feedback and test reports are welcome.
 
@@ -60,7 +76,7 @@ This is an early version. Feedback and test reports are welcome.
 
 - The watch must be worn. The sensor reports 0 when it is not, and the app ignores it.
 - The heart rate sensor reports on change, so intervals of 1-3 seconds are normal.
-- Keeping the sensor active uses battery. Stop the app when you do not need it.
+- Keeping the sensor active uses more battery than other watch-side heart rate apps (see "Battery use"). Stop the app when you do not need it.
 - If the watch is set to pause unused apps or to restrict this app's battery usage, the system may still stop it. Set the app's battery usage to unrestricted if you see problems.
 - Do not run another app that broadcasts the same heart rate service on the same watch at the same time. Receivers see both and may connect to the wrong one.
 
